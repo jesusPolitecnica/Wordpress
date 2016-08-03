@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Mapas</title>
+ 	<link rel="stylesheet" href="leaflet.css">
+        
+
+	<style>
+		#map{
+			position: absolute;
+			width: 98%;
+			height: 97%;
+			border: 2px solid black;
+		}
+
+		.modal{
+			position:fixed;
+			top:0%;
+			display: none;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			z-index: 999;
+			background-color: rgba(0,0,0,0.8);
+		}
+
+		.contendor{
+			position: absolute;
+			top:10%;
+			left: 20%;
+			width: 60%;
+			background-color: white;
+			margin: auto;
+			text-align: center;
+		}
+
+		.contendor span{
+			position: absolute;
+			right: 0%;
+			cursor: pointer;
+		}
+
+		.texto{
+			
+			  border: 1px solid #DBE1EB;
+			  font-size: 18px;
+			  font-family: Arial, Verdana;
+			  padding-left: 20px;
+			  padding-right: 20px;
+			  padding-top: 10px;
+			  padding-bottom: 10px;
+			  border-radius: 4px;
+			  -moz-border-radius: 4px;
+			  -webkit-border-radius: 4px;
+			  -o-border-radius: 4px;
+			  background: #FFFFFF;
+			  background: linear-gradient(left, #FFFFFF, #F7F9FA);
+			  background: -moz-linear-gradient(left, #FFFFFF, #F7F9FA);
+			  background: -webkit-linear-gradient(left, #FFFFFF, #F7F9FA);
+			  background: -o-linear-gradient(left, #FFFFFF, #F7F9FA);
+			  color: #2E3133;
+		  }
+
+		  .texto:focus  {
+		 	 color: #2E3133;
+		  	 border-color: #FBFFAD;
+
+		  }
+
+
+		textarea{
+			position: relative;
+		 	width: 70%;
+			resize: none;
+		}
+
+		.tamaño{
+			position: relative;
+		 	width: 70%;
+		}
+
+		.myButton {
+			-moz-box-shadow: 0px 10px 14px -7px #276873;
+			-webkit-box-shadow: 0px 10px 14px -7px #276873;
+			box-shadow: 0px 10px 14px -7px #276873;
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+			background:-moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+			background:-webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+			background:-o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+			background:-ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+			background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+			background-color:#599bb3;
+			-moz-border-radius:8px;
+			-webkit-border-radius:8px;
+			border-radius:8px;
+			display:inline-block;
+			cursor:pointer;
+			color:#ffffff;
+			font-family:Arial;
+			font-size:18px;
+			font-weight:bold;
+			padding:7px 25px;
+			text-decoration:none;
+			text-shadow:0px 1px 0px #3d768a;
+		}
+		.myButton:hover {
+			background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
+			background:-moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
+			background:-webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
+			background:-o-linear-gradient(top, #408c99 5%, #599bb3 100%);
+			background:-ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
+			background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+			filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
+			background-color:#408c99;
+		}
+		.myButton:active {
+			position:relative;
+			top:1px;
+		}
+
+
+
+		label{
+			font-family: bold;
+		}
+
+		.bodyM{
+			/*position: absolute;*/
+			padding-left: 20px;
+			padding-right: 20px;
+			width: 92.4%;
+			height: 100%;
+		}
+
+		.close{
+			background-color: white;
+			border:2px solid white;
+			border-radius: 2px;
+			color:#c10303;
+			font-family: bold;
+		}
+
+		.close:hover {
+			border-color: #c10302;
+			border-top-width:2px ;
+			border-right-width:2px ;
+			border-left-width:2px ;
+			border-bottom-width:2px ;
+			background-color: #c10303;
+			color:white;
+
+		}
+
+		.buscador{
+			position: absolute;
+			z-index: 999;
+			left: 4%;
+			top:3%;
+			width: 16%;
+			height: 5%;
+			
+			cursor:pointer;
+		}
+
+		.btnBuscar{
+			background-color: rgba(255,255,255,0.1);
+			cursor: pointer;
+			border:none;
+			padding: 1px 1px 1px 1px;
+			margin-left: 30px;	
+
+		}
+
+		.resultado{
+			position: relative;
+			width: 100%;
+
+
+		}
+
+		ul{
+			padding-left: 0px;
+		}
+
+		li{
+			list-style: none;
+			border-bottom:2px solid black;
+			margin-bottom: 3px;
+			padding-left: 3px;
+			padding-top: 5px;
+			font-weight: bold;
+		}
+
+		li a{
+			text-decoration: none;
+			color:black;
+		}
+
+		li:hover{
+			background-color: #dbe1eb;
+			
+		}
+
+		li:hover a{
+			color:#820606;
+		}
+
+		#clear{
+			background-color: #9c0a0a;
+		}
+
+		#clear a{
+			color:white;
+		}
+
+		#clear:hover{
+			background-color: #ab0606;	
+		}
+
+		#cajaBuscar{
+			margin-left: 30px;
+		}
+
+
+	</style>
+</head>
+<body>
+	<div id="map"></div>
+	<div class="modal">
+		<div class="contendor">
+			<span class="close">X</span>
+			<h3>Información de la Marca</h3>
+			<hr>
+			<div class="bodyM">
+				<label for="">Nombre de la Marca: </label><br>
+				<input class="texto tamaño" placeholder="nombre" id="nomMak" type="text">
+				<br><br>
+				<label for="">Descripción:</label> <br>
+				<textarea name="" class="texto" cols="30" id="desMak" placeholder="Descripción" rows="3"></textarea><br>
+				<button class="myButton" type="button">Guardar</button>	
+				<br>
+				<br>
+			</div>
+			
+		</div>
+	</div>
+	<div class="buscador">
+		<div class="cont">
+			<input class="texto" id="cajaBuscar" type="text" placeholder="Buscar">
+		</div>
+		<button class="btnBuscar"><img src="images/busqueda.png" alt=""></button>
+		<div class="resultado"></div>
+		<li id='clear' style="display:none;"><a href='#'>Limpiar</a></br></li>
+	</div>
+	<script src="jquery-2.1.4.min.js"></script>
+	<script src="leaflet-src.js"></script>
+	<script src="leaflet.js"></script>
+	<script src="mapa.js"></script> 
+</body>
+</html>

@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29/07/2016, 11:55:20 AM
+    Author     : Politecnica
+*/
+ 
+#map{
+    position:absolute;
+    border: 2px solid red;
+    width:140%;
+    height:300%;
+    right:-23%;
+    z-index:999;
+    background-image: url(../images/loading2.gif);
+    background-repeat:no-repeat;
+    background-position:center;
+}
+
+
+#prueba{
+    position: absolute;
+    z-index:999;
+    border:3px solid red;   
+}
